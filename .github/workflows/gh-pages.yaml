@@ -1,0 +1,55 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "gh-pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - run: npm ci
+
+      - run: |
+          echo '${{ secrets.GCP_SA_KEY }}' > "$RUNNER_TEMP/service-account.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/service-account.json" >> "$GITHUB_ENV"
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
