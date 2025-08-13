@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import { useCallback, useEffect } from 'react';
 import {
     ReactFlow,
@@ -15,16 +16,17 @@ import {
 import Dagre from '@dagrejs/dagre';
 
 import { getCMS, type CMS, type NodeData, type EdgeData } from '../lib/cms';
+import { NodeType } from '../lib/types';
 import { Node } from '../components/node';
 import { Edge } from '../components/edge';
 import { Search } from '../components/search';
 import { Info } from '../components/info';
-import { GetStaticProps } from 'next';
 
 type HomeProps = { cms: CMS };
 
 const nodeTypes = {
-    node: Node,
+    [NodeType.Male]: Node,
+    [NodeType.Female]: Node,
 };
 
 const edgeTypes = {
@@ -33,7 +35,7 @@ const edgeTypes = {
 
 const Home = ({ cms }: HomeProps) => {
     const initialNodes = cms.nodes.map((node) => ({
-        type: 'node',
+        type: node.gender === 1 ? NodeType.Male : NodeType.Female,
         id: node.id,
         data: { label: node.name, ...node },
         position: { x: 0, y: 0 },
@@ -119,7 +121,7 @@ const Home = ({ cms }: HomeProps) => {
                 <Panel position="top-left">
                     <Search nodes={nodes} onSelect={handleSelectNodeFromSearch} />
                 </Panel>
-                <MiniMap />
+                <MiniMap nodeClassName={(node) => (node.type === NodeType.Male ? '!fill-blue-100' : '!fill-pink-100')} />
             </ReactFlow>
             <Info data={selectedNode} onClose={handleViewAll} />
         </main>
