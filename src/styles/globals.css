@@ -1,6 +1,11 @@
 @import 'tailwindcss';
 
 @theme inline {
+    --color-neutral-dark: var(--color-gray-900);
+    --color-neutral-primary: var(--color-gray-600);
+}
+
+@theme inline {
     --color-male-dark: var(--color-blue-900);
     --color-male-primary: var(--color-blue-600);
     --color-male-secondary: var(--color-blue-400);

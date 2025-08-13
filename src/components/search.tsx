@@ -36,8 +36,8 @@ const iconStyle = cva('w-4 h-4', {
 const nameStyle = cva('font-medium', {
     variants: {
         deceased: {
-            true: 'text-gray-500',
-            false: 'text-gray-900',
+            true: 'text-neutral-primary',
+            false: 'text-neutral-dark',
         },
     },
 });
@@ -132,7 +132,7 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
         <div className="absolute z-10 top-4 left-4 w-80">
             <div className="relative">
                 <div className="relative">
-                    <LuSearch className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 top-1/2 left-3" />
+                    <LuSearch className="absolute w-4 h-4 transform -translate-y-1/2 text-neutral-primary top-1/2 left-3" />
                     <input
                         ref={inputRef}
                         type="text"
@@ -146,7 +146,7 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
                     {searchTerm && (
                         <button
                             onClick={clearSearch}
-                            className="absolute text-gray-400 transform -translate-y-1/2 top-1/2 right-3 hover:text-gray-600"
+                            className="absolute transform -translate-y-1/2 text-neutral-primary top-1/2 right-3 hover:text-neutral-dark"
                         >
                             <LuX className="w-4 h-4" />
                         </button>
