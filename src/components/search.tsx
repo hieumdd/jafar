@@ -37,6 +37,14 @@ const nameStyle = cva('font-medium', {
     },
 });
 
+const removeAccents = (str: string) => {
+    return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'D');
+};
+
 export const Search = ({ nodes, onSelect }: SearchProps) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +55,13 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
         if (!searchTerm.trim()) {
             return [];
         }
-        return nodes.filter((node) => node.data.name.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 5);
+        return nodes
+            .filter((node) => {
+                const normalizedName = removeAccents(node.data.name.toLowerCase());
+                const normalizedSearch = removeAccents(searchTerm.toLowerCase());
+                return normalizedName.includes(normalizedSearch);
+            })
+            .slice(0, 5);
     }, [nodes, searchTerm]);
 
     const handleNodeSelect = (node: Node<NodeData>) => {
