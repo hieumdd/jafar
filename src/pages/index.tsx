@@ -103,7 +103,7 @@ const Home = ({ cms }: HomeProps) => {
     }, []);
 
     return (
-        <main className="w-full h-screen relative">
+        <main className="relative w-full h-screen">
             <ReactFlow
                 nodes={nodes}
                 edges={edges}

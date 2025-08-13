@@ -3,7 +3,7 @@ import { BaseEdge, getSmoothStepPath, type Edge as TEdge, type EdgeProps } from 
 
 import { EdgeData } from '../lib/cms';
 
-const edgeStyle = cva('![stroke-linecap:round] !stroke-[2px]', {
+const edgeStyle = cva('!stroke-[2px] ![stroke-linecap:round]', {
     variants: {
         gender: {
             1: '!stroke-male-primary',

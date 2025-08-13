@@ -6,7 +6,7 @@ import { Handle, Position, type Node as TNode, type NodeProps as TNodeProps } fr
 import { type NodeData } from '../lib/cms';
 import { NodeType } from '../lib/types';
 
-const nodeStyle = cva('px-4 py-3 rounded-lg border-2 min-w-[120px] transition-all duration-200 cursor-pointer hover:shadow-md', {
+const nodeStyle = cva('min-w-[120px] cursor-pointer rounded-lg border-2 px-4 py-3 transition-all duration-200 hover:shadow-md', {
     variants: {
         type: {
             [NodeType.Male]: 'bg-male-light border-male-secondary',
