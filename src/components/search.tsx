@@ -14,7 +14,7 @@ type SearchProps = {
 const itemStyle = cva('flex w-full items-center gap-3 border-gray-100 px-4 py-3 text-left hover:bg-gray-50', {
     variants: {
         selected: {
-            true: 'bg-purple-100 border-purple-200',
+            true: 'bg-slate-100 border-slate-200',
             false: '',
         },
     },
@@ -141,7 +141,7 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         onFocus={handleFocus}
-                        className="w-full py-2 pl-10 pr-10 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-transparent focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                        className="w-full py-2 pl-10 pr-10 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-transparent focus:ring-2 focus:ring-slate-500 focus:outline-none"
                     />
                     {searchTerm && (
                         <button
