@@ -13,3 +13,9 @@
     --color-female-secondary: var(--color-pink-400);
     --color-female-light: var(--color-pink-100);
 }
+
+@layer base {
+    .react-flow__node:focus-visible {
+        @apply outline-none ring-0;
+    }
+}

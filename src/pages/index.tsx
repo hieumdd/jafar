@@ -11,7 +11,8 @@ import {
     useReactFlow,
     type Node as TNode,
     type Edge as TEdge,
-    type OnSelectionChangeParams,
+    type OnBeforeDelete,
+    type OnSelectionChangeFunc,
 } from '@xyflow/react';
 import Dagre from '@dagrejs/dagre';
 
@@ -55,8 +56,10 @@ const Home = ({ cms }: HomeProps) => {
 
     const selectedNode = nodes.find((node) => node.selected)?.data || null;
 
-    const onSelectionChange = useCallback(
-        ({ nodes: selectedNodes }: OnSelectionChangeParams) => {
+    const onBeforeDelete = useCallback<OnBeforeDelete<TNode<NodeData>, TEdge<EdgeData>>>(async () => false, []);
+
+    const onSelectionChange = useCallback<OnSelectionChangeFunc>(
+        ({ nodes: selectedNodes }) => {
             if (selectedNodes.length > 0) {
                 const node = selectedNodes[0] as TNode<NodeData>;
                 fitView({ nodes: [node], duration: 800, padding: 0.3 });
@@ -112,6 +115,7 @@ const Home = ({ cms }: HomeProps) => {
                 nodeTypes={nodeTypes}
                 edgeTypes={edgeTypes}
                 onPaneClick={handleViewAll}
+                onBeforeDelete={onBeforeDelete}
                 onSelectionChange={onSelectionChange}
                 nodesDraggable={false}
                 connectOnClick={false}
