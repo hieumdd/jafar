@@ -121,7 +121,7 @@ const Home = ({ cms }: HomeProps) => {
                 <Panel position="top-left">
                     <Search nodes={nodes} onSelect={handleSelectNodeFromSearch} />
                 </Panel>
-                <MiniMap nodeClassName={(node) => (node.type === NodeType.Male ? '!fill-blue-100' : '!fill-pink-100')} />
+                <MiniMap nodeClassName={(node) => (node.type === NodeType.Male ? '!fill-male-light' : '!fill-female-light')} />
             </ReactFlow>
             <Info data={selectedNode} onClose={handleViewAll} />
         </main>

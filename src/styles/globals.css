@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+
+@theme inline {
+    --color-male-dark: var(--color-blue-900);
+    --color-male-primary: var(--color-blue-600);
+    --color-male-secondary: var(--color-blue-400);
+    --color-male-light: var(--color-blue-100);
+}
+
+@theme inline {
+    --color-female-dark: var(--color-pink-900);
+    --color-female-primary: var(--color-pink-600);
+    --color-female-secondary: var(--color-pink-400);
+    --color-female-light: var(--color-pink-100);
+}

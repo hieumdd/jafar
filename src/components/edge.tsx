@@ -6,8 +6,8 @@ import { EdgeData } from '../lib/cms';
 const edgeStyle = cva('![stroke-linecap:round] !stroke-[2px]', {
     variants: {
         gender: {
-            1: '!stroke-blue-500',
-            0: '!stroke-pink-500',
+            1: '!stroke-male-primary',
+            0: '!stroke-female-primary',
         },
     },
 });

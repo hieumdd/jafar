@@ -13,7 +13,7 @@ type SearchProps = {
 const itemStyle = cva('w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-b-0', {
     variants: {
         selected: {
-            true: 'bg-blue-50 border-blue-200',
+            true: 'bg-male-light border-male-secondary',
             false: '',
         },
     },
@@ -22,8 +22,8 @@ const itemStyle = cva('w-full px-4 py-3 text-left hover:bg-gray-50 flex items-ce
 const dotStyle = cva('w-3 h-3 rounded-full', {
     variants: {
         gender: {
-            1: 'bg-blue-500',
-            0: 'bg-pink-500',
+            1: 'bg-male-primary',
+            0: 'bg-female-primary',
         },
     },
 });

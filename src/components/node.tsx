@@ -9,8 +9,8 @@ import { NodeType } from '../lib/types';
 const nodeStyle = cva('px-4 py-3 rounded-lg border-2 min-w-[120px] transition-all duration-200 cursor-pointer hover:shadow-md', {
     variants: {
         type: {
-            [NodeType.Male]: 'bg-blue-50 border-blue-200',
-            [NodeType.Female]: 'bg-pink-50 border-pink-200',
+            [NodeType.Male]: 'bg-male-light border-male-secondary',
+            [NodeType.Female]: 'bg-female-light border-female-secondary',
         },
         deceased: {
             true: 'opacity-80 border-dashed',
@@ -22,16 +22,16 @@ const nodeStyle = cva('px-4 py-3 rounded-lg border-2 min-w-[120px] transition-al
         },
     },
     compoundVariants: [
-        { type: NodeType.Male, selected: true, class: 'bg-blue-500 border-blue-300' },
-        { type: NodeType.Female, selected: true, class: 'bg-pink-500 border-pink-300' },
+        { type: NodeType.Male, selected: true, class: 'bg-male-primary' },
+        { type: NodeType.Female, selected: true, class: 'bg-female-primary' },
     ],
 });
 
 const iconStyle = cva('w-5 h-5', {
     variants: {
         type: {
-            [NodeType.Male]: 'text-blue-900',
-            [NodeType.Female]: 'text-pink-900',
+            [NodeType.Male]: 'text-male-dark',
+            [NodeType.Female]: 'text-female-dark',
         },
         deceased: {
             true: 'opacity-80',
@@ -51,8 +51,8 @@ const iconStyle = cva('w-5 h-5', {
 const nameStyle = cva('font-medium text-sm', {
     variants: {
         type: {
-            [NodeType.Male]: 'text-blue-900',
-            [NodeType.Female]: 'text-pink-900',
+            [NodeType.Male]: 'text-male-dark',
+            [NodeType.Female]: 'text-female-dark',
         },
         deceased: {
             true: 'opacity-80',
