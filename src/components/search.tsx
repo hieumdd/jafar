@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { useState, useRef, useMemo } from 'react';
-import { LuSearch, LuX } from 'react-icons/lu';
+import { LuSearch, LuX, LuUser } from 'react-icons/lu';
+import { TbGrave2 } from 'react-icons/tb';
 import { type Node } from '@xyflow/react';
 
 import { type NodeData } from '../lib/cms';
@@ -10,20 +11,24 @@ type SearchProps = {
     onSelect: (nodeId: string) => void;
 };
 
-const itemStyle = cva('w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-b-0', {
+const itemStyle = cva('flex w-full items-center gap-3 border-gray-100 px-4 py-3 text-left hover:bg-gray-50', {
     variants: {
         selected: {
-            true: 'bg-male-light border-male-secondary',
+            true: 'bg-purple-100 border-purple-200',
             false: '',
         },
     },
 });
 
-const dotStyle = cva('w-3 h-3 rounded-full', {
+const iconStyle = cva('w-4 h-4', {
     variants: {
         gender: {
-            1: 'bg-male-primary',
-            0: 'bg-female-primary',
+            1: 'text-male-primary',
+            0: 'text-female-primary',
+        },
+        deceased: {
+            true: 'opacity-80',
+            false: '',
         },
     },
 });
@@ -31,7 +36,7 @@ const dotStyle = cva('w-3 h-3 rounded-full', {
 const nameStyle = cva('font-medium', {
     variants: {
         deceased: {
-            true: 'text-gray-500 line-through',
+            true: 'text-gray-500',
             false: 'text-gray-900',
         },
     },
@@ -124,10 +129,10 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
     };
 
     return (
-        <div className="absolute top-4 left-4 z-10 w-80">
+        <div className="absolute z-10 top-4 left-4 w-80">
             <div className="relative">
                 <div className="relative">
-                    <LuSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <LuSearch className="absolute w-4 h-4 text-gray-400 transform -translate-y-1/2 top-1/2 left-3" />
                     <input
                         ref={inputRef}
                         type="text"
@@ -136,12 +141,12 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         onFocus={handleFocus}
-                        className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full py-2 pl-10 pr-10 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-transparent focus:ring-2 focus:ring-purple-500 focus:outline-none"
                     />
                     {searchTerm && (
                         <button
                             onClick={clearSearch}
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            className="absolute text-gray-400 transform -translate-y-1/2 top-1/2 right-3 hover:text-gray-600"
                         >
                             <LuX className="w-4 h-4" />
                         </button>
@@ -149,14 +154,15 @@ export const Search = ({ nodes, onSelect }: SearchProps) => {
                 </div>
 
                 {isOpen && filteredNodes.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                    <div className="absolute left-0 right-0 mt-1 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg top-full max-h-60">
                         {filteredNodes.map((node, index) => {
                             const selected = index === selectedIndex;
                             const gender = node.data.gender;
                             const deceased = node.data.isDeceased;
                             return (
                                 <button key={node.id} onClick={() => handleNodeSelect(node)} className={itemStyle({ selected })}>
-                                    <div className={dotStyle({ gender })} />
+                                    {!deceased && <LuUser className={iconStyle({ gender, deceased })} />}
+                                    {deceased && <TbGrave2 className={iconStyle({ gender, deceased })} />}
                                     <span className={nameStyle({ deceased })}>{node.data.name}</span>
                                 </button>
                             );
