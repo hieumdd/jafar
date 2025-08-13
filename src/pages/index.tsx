@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
     ReactFlow,
     Background,
@@ -49,20 +49,26 @@ const Home = ({ cms }: HomeProps) => {
     }));
     const [nodes, setNodes, onNodesChange] = useNodesState<TNode<NodeData>>(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState<TEdge<EdgeData>>(initialEdges);
-    const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
     const { fitView } = useReactFlow();
+
+    const selectedNode = nodes.find((node) => node.selected)?.data || null;
 
     const onSelectionChange = useCallback(
         ({ nodes: selectedNodes }: OnSelectionChangeParams) => {
             if (selectedNodes.length > 0) {
                 const node = selectedNodes[0] as TNode<NodeData>;
-                setSelectedNode(node.data);
                 fitView({ nodes: [node], duration: 800, padding: 0.3 });
+                setEdges((eds) => {
+                    return eds.map((edge) => ({
+                        ...edge,
+                        data: { ...edge.data, connected: edge.source === node.id || edge.target === node.id } as EdgeData,
+                    }));
+                });
             } else {
-                setSelectedNode(null);
+                setEdges((eds) => eds.map((edge) => ({ ...edge, data: { ...edge.data, connected: false } as EdgeData })));
             }
         },
-        [fitView],
+        [fitView, setEdges],
     );
 
     const handleSelectNodeFromSearch = (nodeId: string) => {
@@ -70,7 +76,6 @@ const Home = ({ cms }: HomeProps) => {
     };
 
     const handleViewAll = () => {
-        setNodes((nds) => nds.map((node) => ({ ...node, selected: false })));
         fitView({ duration: 800, padding: 0.1 });
     };
 

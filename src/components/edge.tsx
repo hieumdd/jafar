@@ -9,12 +9,21 @@ const edgeStyle = cva('!stroke-[2px]', {
             1: '!stroke-blue-500',
             0: '!stroke-pink-500',
         },
+        connected: {
+            true: '![stroke-dasharray:8,4] ![stroke-linecap:round]',
+            false: '',
+        },
     },
 });
 
 export const Edge = (props: EdgeProps<TEdge<EdgeData>>) => {
     const { data, ...edgeProps } = props;
     const [edgePath] = getSmoothStepPath(edgeProps);
-
-    return <BaseEdge path={edgePath} className={edgeStyle({ gender: data!.gender })} />;
+    return (
+        <BaseEdge path={edgePath} className={edgeStyle({ gender: data!.gender, connected: data?.connected })}>
+            {data?.connected && (
+                <animate attributeName="stroke-dashoffset" from="0" to="-12" dur="0.4s" repeatCount="indefinite" calcMode="linear" />
+            )}
+        </BaseEdge>
+    );
 };
