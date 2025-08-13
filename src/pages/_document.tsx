@@ -4,7 +4,7 @@ import { title, description } from '../lib/settings';
 
 const Document = () => {
     return (
-        <Html lang="en" className="h-full">
+        <Html lang="en">
             <Head>
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
