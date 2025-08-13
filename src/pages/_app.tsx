@@ -7,7 +7,7 @@ import '@xyflow/react/dist/base.css';
 import '../styles/globals.css';
 import { title, description } from '../lib/settings';
 
-const font = Inter();
+const font = Inter({ subsets: ['vietnamese'] });
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
