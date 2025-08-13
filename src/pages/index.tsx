@@ -17,7 +17,7 @@ import {
 import Dagre from '@dagrejs/dagre';
 
 import { getCMS, type CMS, type NodeData, type EdgeData } from '../lib/cms';
-import { NodeType } from '../lib/types';
+import { NodeType, EdgeType } from '../lib/types';
 import { Node } from '../components/node';
 import { Edge } from '../components/edge';
 import { Search } from '../components/search';
@@ -31,7 +31,8 @@ const nodeTypes = {
 };
 
 const edgeTypes = {
-    edge: Edge,
+    [EdgeType.Father]: Edge,
+    [EdgeType.Mother]: Edge,
 };
 
 const Home = ({ cms }: HomeProps) => {
@@ -43,7 +44,7 @@ const Home = ({ cms }: HomeProps) => {
     }));
 
     const initialEdges = cms.edges.map((edge) => ({
-        type: 'edge',
+        type: edge.gender === 1 ? EdgeType.Father : EdgeType.Mother,
         id: edge.id,
         source: edge.sourceId,
         target: edge.targetId,
