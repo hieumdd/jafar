@@ -128,7 +128,7 @@ const Home = ({ cms }: HomeProps) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     const cms = await getCMS();
     return { props: { cms } };
 };
