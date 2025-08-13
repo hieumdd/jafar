@@ -15,7 +15,7 @@ export const Info = ({ data, onClose }: InfoProps) => {
         <div className="fixed inset-x-4 top-3/4 z-50 max-h-[80vh] -translate-y-1/2 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-2xl md:inset-x-auto md:top-4 md:right-4 md:w-96 md:translate-y-0">
             <div className="flex h-full max-h-[80vh] flex-col">
                 <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                    <h2 className="text-xl font-semibold text-gray-900">{data.name}</h2>
+                    <h2 className="text-xl font-bold text-gray-900">{data.name}</h2>
                     <button onClick={onClose}>
                         <LuX className="w-4 h-4" />
                     </button>
