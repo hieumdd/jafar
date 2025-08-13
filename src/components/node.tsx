@@ -74,7 +74,7 @@ const sourceHandleStyle = cva('invisible', {
     variants: {
         type: {
             sourceFather: ' !left-[30%]',
-            sourceMother: '!top-[50%] !left-[70%]',
+            sourceMother: '!left-[70%]',
             target: '',
         },
     },
