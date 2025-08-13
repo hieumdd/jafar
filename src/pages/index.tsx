@@ -58,14 +58,9 @@ const Home = ({ cms }: HomeProps) => {
             if (selectedNodes.length > 0) {
                 const node = selectedNodes[0] as TNode<NodeData>;
                 fitView({ nodes: [node], duration: 800, padding: 0.3 });
-                setEdges((eds) => {
-                    return eds.map((edge) => ({
-                        ...edge,
-                        data: { ...edge.data, connected: edge.source === node.id || edge.target === node.id } as EdgeData,
-                    }));
-                });
+                setEdges((eds) => eds.map((edge) => ({ ...edge, animated: edge.source === node.id || edge.target === node.id })));
             } else {
-                setEdges((eds) => eds.map((edge) => ({ ...edge, data: { ...edge.data, connected: false } as EdgeData })));
+                setEdges((eds) => eds.map((edge) => ({ ...edge, animated: false })));
             }
         },
         [fitView, setEdges],

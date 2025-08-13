@@ -22,7 +22,6 @@ export type EdgeData = {
     sourceId: string;
     targetId: string;
     gender: 1 | 0;
-    connected?: boolean;
 };
 
 export const getCMS = async () => {
